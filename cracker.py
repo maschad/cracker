@@ -1,6 +1,7 @@
-import crypt,optparse
+import crypt,optparse,string,random
 from threading import Thread
 
+salt_chars = './' + string.ascii_letters + string.digits
 
 def cmpPass(cryptPass, word, salt):
    cryptWord= crypt.crypt(word,salt)
@@ -9,7 +10,7 @@ def cmpPass(cryptPass, word, salt):
    return
 def testPass(cryptPass, dname):
    dicFile = open(dname,'r')
-   salt = cryptPass.split('.')[0]
+   salt = salt_chars[random.randint(0, 63)] + salt_chars[random.rand_int(0, 63)]
    for word in dicFile.readlines():
       word = word.strip('\n')
       t = Thread(target=cmpPass, args=(cryptPass, word, salt))
@@ -30,7 +31,7 @@ def main():
    passFile = open(fname)
    for line in passFile.readlines():
       if ":" in line:
-         cryptPass=line.split(':')[1]
+         cryptPass = line.split(':')[1]
          t = Thread(target=testPass, args=(cryptPass, dname))
          t.start()
 if __name__=="__main__":
