@@ -10,7 +10,7 @@ def cmpPass(cryptPass, word, salt):
    return
 def testPass(cryptPass, dname):
    dicFile = open(dname,'r')
-   salt = salt_chars[random.randint(0, 63)] + salt_chars[random.rand_int(0, 63)]
+   salt = salt_chars[random.randint(0, 63)] + salt_chars[random.randint(0, 63)]
    for word in dicFile.readlines():
       word = word.strip('\n')
       t = Thread(target=cmpPass, args=(cryptPass, word, salt))
@@ -34,5 +34,6 @@ def main():
          cryptPass = line.split(':')[1]
          t = Thread(target=testPass, args=(cryptPass, dname))
          t.start()
+
 if __name__=="__main__":
    main()
