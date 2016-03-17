@@ -8,6 +8,7 @@ def cmpPass(cryptPass, word, salt):
    if (cryptWord == cryptPass):
       print ("[+] Found Password " +word)
    return
+
 def testPass(cryptPass, dname):
    dicFile = open(dname,'r')
    salt = salt_chars[random.randint(0, 63)] + salt_chars[random.randint(0, 63)]
@@ -16,9 +17,10 @@ def testPass(cryptPass, dname):
       t = Thread(target=cmpPass, args=(cryptPass, word, salt))
       t.start()
    return
+   
 def main():
-   parser = optparse.OptionParser("usage%prog "+ "-f <password file> -d <dictionary>")
-   parser.add_option('-f', dest='fname', type='string', help='specify password file')
+   parser = optparse.OptionParser("usage%prog "+ "-f <file> -d <dictionary>")
+   parser.add_option('-f', dest='fname', type='string', help='specify file to unlock')
    parser.add_option('-d', dest='dname', type='string', help='specify dictionary file')
    (options,args) = parser.parse_args()
    if (options.fname == None) | (options.dname == None):
