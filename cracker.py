@@ -2,9 +2,9 @@ import crypt,optparse,uuid
 from threading import Thread
 
 def cmpPass(cryptPass, word, salt):
-   cryptWord= crypt.crypt(word,salt)
+   cryptWord = crypt.crypt(word,salt)
    if (cryptWord == cryptPass):
-      print ("[+] Found Password " +word)
+      print ("[+] Found Password " + word)
    return
 
 def testPass(cryptPass, dname,salt):
@@ -29,9 +29,8 @@ def main():
 
    passFile = open(fname)
    for line in passFile.readlines():
-      salt = uuid.uuid4().hex
-      cryptPass = crypt.crypt(line,salt)
-      t = Thread(target=testPass, args=(cryptPass,dname,salt))
+      salt = '311'
+      t = Thread(target=testPass, args=(line,dname,salt))
       t.start()
 
 if __name__=="__main__":
